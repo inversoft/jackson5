@@ -36,13 +36,11 @@ public class JacksonModule extends SimpleModule {
     super(VERSION);
 
     // Deserializers
-    addDeserializer(Locale.class, new LocaleDeserializer());
     addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
     addDeserializer(LocalDate.class, new LocalDateDeserializer());
     addDeserializer(ZoneId.class, new ZoneIdDeserializer());
 
     // Serializers
-    addSerializer(Locale.class, new LocaleSerializer());
     addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer());
     addSerializer(LocalDate.class, new LocalDateSerializer());
     addSerializer(ZoneId.class, new ZoneIdSerializer());
