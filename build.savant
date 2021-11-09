@@ -8,7 +8,7 @@ jacksonVersion = "2.13.0"
 slf4jVersion = "2.0.0-alpha5"
 testngVersion = "7.3.0"
 
-project(group: "com.inversoft", name: "jackson5", version: "2.5.0", licenses: ["ApacheV2_0"]) {
+project(group: "com.inversoft", name: "jackson5", version: "2.6.0", licenses: ["ApacheV2_0"]) {
   workflow {
     standard()
   }
