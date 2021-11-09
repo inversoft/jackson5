@@ -6,7 +6,7 @@
 
   <groupId>com.inversoft</groupId>
   <artifactId>jackson5</artifactId>
-  <version>2.5.0</version>
+  <version>2.6.0</version>
   <packaging>jar</packaging>
 
   <name>Inversoft Jackson Serializers and Deserializers</name>
@@ -75,17 +75,17 @@
     <dependency>
       <groupId>com.google.inject</groupId>
       <artifactId>guice</artifactId>
-      <version>4.2.3</version>
+      <version>5.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.21</version>
+      <version>2.0.0-alpha5</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>6.14.3</version>
+      <version>7.3.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
