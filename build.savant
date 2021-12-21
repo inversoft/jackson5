@@ -2,13 +2,10 @@
  * Copyright (c) 2015-2019, Inversoft Inc., All Rights Reserved
  */
 savantVersion = "1.0.0"
-guavaVersion = "30.1.0-jre"
-guiceVersion = "5.0.1"
 jacksonVersion = "2.13.0"
-slf4jVersion = "2.0.0-alpha5"
 testngVersion = "7.3.0"
 
-project(group: "com.inversoft", name: "jackson5", version: "2.6.1", licenses: ["ApacheV2_0"]) {
+project(group: "com.inversoft", name: "jackson5", version: "3.0.0", licenses: ["ApacheV2_0"]) {
   workflow {
     fetch {
       cache()
@@ -28,9 +25,6 @@ project(group: "com.inversoft", name: "jackson5", version: "2.6.1", licenses: ["
       dependency(id: "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
       dependency(id: "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
       dependency(id: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}")
-      dependency(id: "com.google.guava:guava:${guavaVersion}", skipCompatibilityCheck: true)
-      dependency(id: "com.google.inject:guice:${guiceVersion}")
-      dependency(id: "org.slf4j:slf4j-api:${slf4jVersion}")
     }
     group(name: "test-compile", export: false) {
       dependency(id: "org.testng:testng:${testngVersion}")
@@ -40,7 +34,6 @@ project(group: "com.inversoft", name: "jackson5", version: "2.6.1", licenses: ["
   publications {
     standard()
   }
-
 }
 
 // Plugins
@@ -49,8 +42,10 @@ file = loadPlugin(id: "org.savantbuild.plugin:file:1.0.2")
 java = loadPlugin(id: "org.savantbuild.plugin:java:1.0.2")
 idea = loadPlugin(id: "org.savantbuild.plugin:idea:1.0.1")
 release = loadPlugin(id: "org.savantbuild.plugin:release-git:${savantVersion}")
+javaTestNG = loadPlugin(id: "org.savantbuild.plugin:java-testng:1.0.9")
 
 java.settings.javaVersion = "1.8"
+javaTestNG.settings.javaVersion = "1.8"
 
 target(name: "clean", description: "Cleans the project") {
   java.clean()
@@ -66,7 +61,7 @@ target(name: "jar", description: "JARs the project", dependsOn: ["compile"]) {
 }
 
 target(name: "test", description: "Runs the project's tests", dependsOn: ["jar"]) {
-  // No op
+  javaTestNG.test()
 }
 
 target(name: "doc", description: "Generate the project's JavaDoc", dependsOn: ["jar"]) {

@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.inject.Inject;
 
 /**
  * @author Brian Pontarelli
@@ -44,7 +43,6 @@ public class ToString {
                 .registerModule(new JacksonModule());
   }
 
-  @Inject
   public static void setJacksonModules(Set<Module> jacksonModules) {
     if (jacksonModules.size() > 0) {
       objectMapper.registerModules(jacksonModules);
