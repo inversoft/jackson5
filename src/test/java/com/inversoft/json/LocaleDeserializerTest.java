@@ -1,5 +1,17 @@
 /*
  * Copyright (c) 2021, Inversoft Inc., All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific
+ * language governing permissions and limitations under the License.
  */
 package com.inversoft.json;
 
@@ -14,13 +26,26 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inversoft.json.JacksonConstructor;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 @Test
 public class LocaleDeserializerTest {
   ObjectMapper mapper = new ObjectMapper();
+
+  @Test(dataProvider = "localeData")
+  public void allLocalesFromBCP47Strings(Locale locale) throws Exception {
+    Locale testLocaleObjectOutFromString = mapper.readValue("\"" + locale.toLanguageTag() + "\"", Locale.class);
+    assertEquals(locale.toLanguageTag(), testLocaleObjectOutFromString.toLanguageTag());
+    testAllDataStructures(testLocaleObjectOutFromString);
+  }
+
+  @Test(dataProvider = "localeData")
+  public void allLocalesFromStrings(Locale locale) throws Exception {
+    Locale testLocaleObjectOutFromString = mapper.readValue("\"" + locale.toString() + "\"", Locale.class);
+    assertEquals(locale.toString(), testLocaleObjectOutFromString.toString());
+    testAllDataStructures(testLocaleObjectOutFromString);
+  }
 
   @DataProvider(name = "localeData")
   public Object[] localeData() {
@@ -31,24 +56,10 @@ public class LocaleDeserializerTest {
     return locales.toArray();
   }
 
-  @Test(dataProvider = "localeData")
-  public void allLocalesFromStrings(Locale locale) throws Exception {
-    Locale testLocaleObjectOutFromString = mapper.readValue("\"" + locale.toString() + "\"", Locale.class);
-    assertEquals(locale.toString(), testLocaleObjectOutFromString.toString());
-    testAllDataStructures(testLocaleObjectOutFromString);
-  }
-
-  @Test(dataProvider = "localeData")
-  public void allLocalesFromBCP47Strings(Locale locale) throws Exception {
-    Locale testLocaleObjectOutFromString = mapper.readValue("\"" + locale.toLanguageTag() + "\"", Locale.class);
-    assertEquals(locale.toLanguageTag(), testLocaleObjectOutFromString.toLanguageTag());
-    testAllDataStructures(testLocaleObjectOutFromString);
-  }
-
   private void testAllDataStructures(Locale testLocaleObjectOutFromString) throws Exception {
     TestLocaleObject test1 = new TestLocaleObject();
     test1.locale = testLocaleObjectOutFromString;
-    test1.localeArray = new Locale[] { testLocaleObjectOutFromString, Locale.CANADA_FRENCH };
+    test1.localeArray = new Locale[]{testLocaleObjectOutFromString, Locale.CANADA_FRENCH};
 
     Map<Locale, String> testMap = new HashMap<>();
     testMap.put(testLocaleObjectOutFromString, "value1");
@@ -68,7 +79,7 @@ public class LocaleDeserializerTest {
     testMapMap.put(Locale.CHINESE, testObjectMap2);
     test1.localeMapMap = testMapMap;
 
-    Locale[] localeArray = new Locale[] { testLocaleObjectOutFromString, Locale.CANADA_FRENCH };
+    Locale[] localeArray = new Locale[]{testLocaleObjectOutFromString, Locale.CANADA_FRENCH};
     Map<Locale, Locale[]> localeArrayMap = new HashMap<>();
     localeArrayMap.put(Locale.FRANCE, localeArray);
     localeArrayMap.put(testLocaleObjectOutFromString, localeArray);
@@ -79,7 +90,7 @@ public class LocaleDeserializerTest {
     TestLocaleObject testLocaleObjectOut = mapper.readValue(testObjectString, TestLocaleObject.class);
 
     assertEquals(testLocaleObjectOutFromString, testLocaleObjectOut.locale);
-    assertEquals(mapper.writeValueAsString(new Locale[] { testLocaleObjectOutFromString, Locale.CANADA_FRENCH }), mapper.writeValueAsString(testLocaleObjectOut.localeArray) );
+    assertEquals(mapper.writeValueAsString(new Locale[]{testLocaleObjectOutFromString, Locale.CANADA_FRENCH}), mapper.writeValueAsString(testLocaleObjectOut.localeArray));
     assertEquals(mapper.writeValueAsString(testMap), mapper.writeValueAsString(testLocaleObjectOut.localeMap));
     assertEquals(mapper.writeValueAsString(testObjectMap), mapper.writeValueAsString(testLocaleObjectOut.localeObjectMap));
     assertEquals(mapper.writeValueAsString(testMapMap), mapper.writeValueAsString(testLocaleObjectOut.localeMapMap));
@@ -95,19 +106,20 @@ public class LocaleDeserializerTest {
     // "localeArray": ["en_US"]
     public Locale[] localeArray;
 
+    // "localeArrayMap": {"en_LR": ["en_LR","fr_CA"],"fr_FR": ["en_LR","fr_CA"]}
+    public Map<Locale, Locale[]> localeArrayMap;
+
     // "localMap": {"en_US": "value"}
     public Map<Locale, String> localeMap;
-
-    // "localObjectMap": {"en_US": {}}
-    public Map<Locale, Object> localeObjectMap;
 
     // "localeMapMap": {"en_US": {"map2": "zh_CN","map1": "en_LR"},"zh":{"map2":"zh_CN","map1":"en_LR"}}
     public Map<Locale, Map<String, Locale>> localeMapMap;
 
-    // "localeArrayMap": {"en_LR": ["en_LR","fr_CA"],"fr_FR": ["en_LR","fr_CA"]}
-    public Map<Locale, Locale[]> localeArrayMap;
+    // "localObjectMap": {"en_US": {}}
+    public Map<Locale, Object> localeObjectMap;
 
     @JacksonConstructor
-    public TestLocaleObject() {}
+    public TestLocaleObject() {
+    }
   }
 }
