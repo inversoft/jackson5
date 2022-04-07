@@ -6,7 +6,7 @@
 
   <groupId>com.inversoft</groupId>
   <artifactId>jackson5</artifactId>
-  <version>2.6.0</version>
+  <version>3.0.0</version>
   <packaging>jar</packaging>
 
   <name>Inversoft Jackson Serializers and Deserializers</name>
@@ -71,16 +71,6 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
       <version>2.13.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.inject</groupId>
-      <artifactId>guice</artifactId>
-      <version>5.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.0-alpha5</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
