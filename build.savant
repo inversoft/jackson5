@@ -15,10 +15,10 @@
  */
 
 savantVersion = "1.0.0"
-jacksonVersion = "2.13.2"
+jacksonVersion = "2.13.3"
 testngVersion = "7.3.0"
 
-project(group: "com.inversoft", name: "jackson5", version: "3.0.0", licenses: ["ApacheV2_0"]) {
+project(group: "com.inversoft", name: "jackson5", version: "3.0.1", licenses: ["ApacheV2_0"]) {
   workflow {
     fetch {
       cache()
