@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2021-2023, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
  */
 package com.inversoft.json;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +56,21 @@ public class LocaleDeserializerTest {
     locales.removeIf((locale) -> locale.getLanguage().isEmpty() || locale.hasExtensions() || !locale.getScript().isEmpty());
 
     return locales.toArray();
+  }
+
+  @Test
+  public void too_big() throws Exception {
+    // This is just to prove that the Locale validation by Jackson, and by everyone sucks.
+    // - This means you have to do additional validation elsewhere.
+
+    // Create a 2MB string
+    int length = 2 * 1024 * 1024;
+    char[] array = new char[length];
+    Arrays.fill(array, 'x');
+    String bigString = new String(array);
+
+    Locale actual = mapper.readValue("\"" + bigString + "\"", Locale.class);
+    assertEquals(length, actual.toString().getBytes(StandardCharsets.UTF_8).length);
   }
 
   private void testAllDataStructures(Locale testLocaleObjectOutFromString) throws Exception {
