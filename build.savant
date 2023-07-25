@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2023, Inversoft Inc., All Rights Reserved
  */
 jacksonVersion = "2.15.2"
-testngVersion = "7.8.0"
+testngVersion = "7.3.0"
 
 project(group: "com.inversoft", name: "jackson5", version: "3.0.1", licenses: ["ApacheV2_0"]) {
   workflow {
