@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2023, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2015-2025, Inversoft Inc., All Rights Reserved
  */
 jacksonVersion = "2.15.4"
 testngVersion = "7.3.0"
@@ -43,6 +43,7 @@ java = loadPlugin(id: "org.savantbuild.plugin:java:2.0.0")
 idea = loadPlugin(id: "org.savantbuild.plugin:idea:2.0.0")
 release = loadPlugin(id: "org.savantbuild.plugin:release-git:2.0.0")
 javaTestNG = loadPlugin(id: "org.savantbuild.plugin:java-testng:2.0.0")
+pom = loadPlugin(id: "org.savantbuild.plugin:pom:2.0.0")
 
 java.settings.javaVersion = "1.8"
 javaTestNG.settings.javaVersion = "1.8"
@@ -68,7 +69,7 @@ target(name: "doc", description: "Generate the project's JavaDoc", dependsOn: ["
   java.document()
 }
 
-target(name: "int", description: "Releases a local integration build of the project", dependsOn: ["test"]) {
+target(name: "int", description: "Releases a local integration build of the project", dependsOn: ["test", "pom"]) {
   dependency.integrate()
 }
 
@@ -82,6 +83,10 @@ target(name: "release", description: "Releases a full version of the project", d
 
 target(name: "idea", description: "Updates the IntelliJ IDEA module file") {
   idea.iml()
+}
+
+target(name: "pom", description: "Updates the pom.xml file") {
+  pom.update()
 }
 
 target(name: "publish", description: "Publish to MVN repo", dependsOn: ["clean", "test"]) {
