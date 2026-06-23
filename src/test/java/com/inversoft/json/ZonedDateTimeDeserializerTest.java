@@ -49,10 +49,8 @@ public class ZonedDateTimeDeserializerTest {
       mapper.readValue("true", ZonedDateTime.class);
       fail("Expected exception");
     } catch (JsonMappingException e) {
-      assertEquals(e.getMessage(),
-          "Unexpected token (VALUE_TRUE), expected VALUE_NUMBER_INT: Parseable to long\n" +
-          " at [Source: (String)\"true\"; line: 1, column: 1]");
-    }
+      assertEquals(e.getOriginalMessage(),
+          "Unexpected token (VALUE_TRUE), expected VALUE_NUMBER_INT: Parseable to long");
   }
 
   @Test
