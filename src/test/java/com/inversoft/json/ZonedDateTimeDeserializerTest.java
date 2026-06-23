@@ -50,7 +50,7 @@ public class ZonedDateTimeDeserializerTest {
       fail("Expected exception");
     } catch (JsonMappingException e) {
       assertEquals(e.getMessage(),
-          "Unexpected token (VALUE_TRUE), expected VALUE_TRUE: Parseable to long\n" +
+          "Unexpected token (VALUE_TRUE), expected VALUE_NUMBER_INT: Parseable to long\n" +
           " at [Source: (String)\"true\"; line: 1, column: 1]");
     }
   }
@@ -67,7 +67,7 @@ public class ZonedDateTimeDeserializerTest {
       fail("Expected exception");
     } catch (JsonMappingException e) {
       assertEquals(e.getMessage(),
-          "Unexpected token (VALUE_STRING), expected VALUE_STRING: Parseable to long\n" +
+          "Unexpected token (VALUE_STRING), expected VALUE_NUMBER_INT: Parseable to long\n" +
           " at [Source: (String)\"\"1970-01-01T00:00:01.234Z\"\"; line: 1, column: 1]");
     }
   }
