@@ -51,12 +51,12 @@ public class ZonedDateTimeDeserializer extends StdScalarDeserializer<ZonedDateTi
       try {
         value = Long.parseLong(str);
       } catch (NumberFormatException e) {
-        ctxt.reportWrongTokenException(ZonedDateTime.class,
+        ctxt.reportWrongTokenException(handledType(),
             JsonToken.VALUE_NUMBER_INT,
             "Parseable to long");
       }
     } else {
-      ctxt.reportWrongTokenException(ZonedDateTime.class,
+      ctxt.reportWrongTokenException(handledType(),
           JsonToken.VALUE_NUMBER_INT,
           "Parseable to long");
     }
