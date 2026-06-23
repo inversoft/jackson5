@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2015-2026, Inversoft Inc., All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class ZonedDateTimeDeserializer extends StdScalarDeserializer<ZonedDateTi
   @Override
   public ZonedDateTime deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     JsonToken t = jp.getCurrentToken();
-    long value;
+    long value = 0;
     if (t == JsonToken.VALUE_NUMBER_INT || t == JsonToken.VALUE_NUMBER_FLOAT) {
       value = jp.getLongValue();
     } else if (t == JsonToken.VALUE_STRING) {
@@ -51,10 +51,10 @@ public class ZonedDateTimeDeserializer extends StdScalarDeserializer<ZonedDateTi
       try {
         value = Long.parseLong(str);
       } catch (NumberFormatException e) {
-        throw ctxt.mappingException(handledType());
+        ctxt.reportInputMismatch(ZonedDateTime.class, "stuff");
       }
     } else {
-      throw ctxt.mappingException(handledType());
+      ctxt.reportInputMismatch(ZonedDateTime.class, "stuff");
     }
 
     return ZonedDateTime.ofInstant(Instant.ofEpochMilli(value), ZoneOffset.UTC);
