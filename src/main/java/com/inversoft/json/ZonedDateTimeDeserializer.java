@@ -51,10 +51,14 @@ public class ZonedDateTimeDeserializer extends StdScalarDeserializer<ZonedDateTi
       try {
         value = Long.parseLong(str);
       } catch (NumberFormatException e) {
-        ctxt.reportInputMismatch(ZonedDateTime.class, "stuff");
+        ctxt.reportWrongTokenException(ZonedDateTime.class,
+            t,
+            "Parseable to long");
       }
     } else {
-      ctxt.reportInputMismatch(ZonedDateTime.class, "stuff");
+      ctxt.reportWrongTokenException(ZonedDateTime.class,
+          t,
+          "Parseable to long");
     }
 
     return ZonedDateTime.ofInstant(Instant.ofEpochMilli(value), ZoneOffset.UTC);

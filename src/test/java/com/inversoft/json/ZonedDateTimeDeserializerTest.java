@@ -39,6 +39,23 @@ public class ZonedDateTimeDeserializerTest {
   }
 
   @Test
+  public void parse_error_boolean() throws JsonProcessingException {
+    // Use case: A boolean (not string/int/float/long) value is passed, which is not valid
+
+    // arrange
+
+    // act
+    try {
+      mapper.readValue("true", ZonedDateTime.class);
+      fail("Expected exception");
+    } catch (JsonMappingException e) {
+      assertEquals(e.getMessage(),
+          "Unexpected token (VALUE_TRUE), expected VALUE_TRUE: Parseable to long\n" +
+          " at [Source: (String)\"true\"; line: 1, column: 1]");
+    }
+  }
+
+  @Test
   public void parse_error_string() throws JsonProcessingException {
     // Use case: A full ISO date time value is passed, which is not valid
 
@@ -50,7 +67,7 @@ public class ZonedDateTimeDeserializerTest {
       fail("Expected exception");
     } catch (JsonMappingException e) {
       assertEquals(e.getMessage(),
-          "stuff\n" +
+          "Unexpected token (VALUE_STRING), expected VALUE_STRING: Parseable to long\n" +
           " at [Source: (String)\"\"1970-01-01T00:00:01.234Z\"\"; line: 1, column: 1]");
     }
   }
