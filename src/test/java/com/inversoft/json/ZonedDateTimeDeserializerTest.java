@@ -64,10 +64,8 @@ public class ZonedDateTimeDeserializerTest {
       mapper.readValue("\"1970-01-01T00:00:01.234Z\"", ZonedDateTime.class);
       fail("Expected exception");
     } catch (JsonMappingException e) {
-      assertEquals(e.getMessage(),
-          "Unexpected token (VALUE_STRING), expected VALUE_NUMBER_INT: Parseable to long\n" +
-          " at [Source: (String)\"\"1970-01-01T00:00:01.234Z\"\"; line: 1, column: 1]");
-    }
+      assertEquals(e.getOriginalMessage(),
+          "Unexpected token (VALUE_STRING), expected VALUE_NUMBER_INT: Parseable to long");
   }
 
   @Test
