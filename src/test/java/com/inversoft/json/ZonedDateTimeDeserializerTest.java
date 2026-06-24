@@ -50,7 +50,7 @@ public class ZonedDateTimeDeserializerTest {
       fail("Expected exception");
     } catch (JsonMappingException e) {
       assertEquals(e.getOriginalMessage(),
-          "Unexpected token (VALUE_TRUE), expected VALUE_NUMBER_INT: Parseable to long");
+          "Cannot deserialize value of type `long` from Boolean value (token `JsonToken.VALUE_TRUE`)");
     }
   }
 
@@ -66,7 +66,7 @@ public class ZonedDateTimeDeserializerTest {
       fail("Expected exception");
     } catch (JsonMappingException e) {
       assertEquals(e.getOriginalMessage(),
-          "Unexpected token (VALUE_STRING), expected VALUE_NUMBER_INT: Parseable to long");
+          "Cannot deserialize value of type `long` from String value (token `JsonToken.VALUE_STRING`)");
     }
   }
 
