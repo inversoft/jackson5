@@ -100,7 +100,7 @@ public class ZonedDateTimeDeserializerTest {
 
   @Test
   public void parses_correctly_long() throws JsonProcessingException {
-    // Use case: 1234.0 milliseconds past epoch, parses OK
+    // Use case: 1772569622544 milliseconds past epoch, parses OK
 
     // arrange
 
