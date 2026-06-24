@@ -99,6 +99,20 @@ public class ZonedDateTimeDeserializerTest {
   }
 
   @Test
+  public void parses_correctly_long() throws JsonProcessingException {
+    // Use case: 1234.0 milliseconds past epoch, parses OK
+
+    // arrange
+
+    // act
+    ZonedDateTime result = mapper.readValue("1772569622544", ZonedDateTime.class);
+
+    // assert
+    assertEquals(result,
+        ZonedDateTime.parse("2026-03-03T20:27:02.544Z"));
+  }
+
+  @Test
   public void parses_correctly_string() throws JsonProcessingException {
     // Use case: "1234" milliseconds past epoch, parses OK
 
