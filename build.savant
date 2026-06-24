@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2015-2025, Inversoft Inc., All Rights Reserved
+ * Copyright (c) 2015-2026, Inversoft Inc., All Rights Reserved
  */
-jacksonVersion = "2.15.4"
+jacksonVersion = "2.21.4"
+jacksonAnnotationsVersion = "2.21"  // No 2.21.1 version available at time of update, maybe we can reunite the versions later
 testngVersion = "7.3.0"
 
-project(group: "com.inversoft", name: "jackson5", version: "3.0.1", licenses: ["ApacheV2_0"]) {
+project(group: "com.inversoft", name: "jackson5", version: "3.1.0", licenses: ["ApacheV2_0"]) {
   workflow {
     fetch {
       cache()
@@ -24,7 +25,7 @@ project(group: "com.inversoft", name: "jackson5", version: "3.0.1", licenses: ["
     group(name: "compile") {
       dependency(id: "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
       dependency(id: "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
-      dependency(id: "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}")
+      dependency(id: "com.fasterxml.jackson.core:jackson-annotations:${jacksonAnnotationsVersion}")
     }
     group(name: "test-compile", export: false) {
       dependency(id: "org.testng:testng:${testngVersion}")
