@@ -35,7 +35,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class LocaleDeserializerTest {
   ObjectMapper mapper = new ObjectMapper();
 
-  @Test(dataProvider = "localeData")
+  @Test(dataProvider = "bcp47LocaleData")
   public void allLocalesFromBCP47Strings(Locale locale) throws Exception {
     Locale testLocaleObjectOutFromString = mapper.readValue("\"" + locale.toLanguageTag() + "\"", Locale.class);
     assertEquals(locale.toLanguageTag(), testLocaleObjectOutFromString.toLanguageTag());
@@ -54,6 +54,21 @@ public class LocaleDeserializerTest {
     List<Locale> locales = new ArrayList<>();
     Collections.addAll(locales, Locale.getAvailableLocales());
     locales.removeIf((locale) -> locale.getLanguage().isEmpty() || locale.hasExtensions() || !locale.getScript().isEmpty());
+
+    return locales.toArray();
+  }
+
+  @DataProvider(name = "bcp47LocaleData")
+  public Object[] bcp47LocaleData() {
+    List<Locale> locales = new ArrayList<>();
+    for (Object locale : localeData()) {
+      locales.add((Locale) locale);
+    }
+
+    // A locale with a variant but no country (e.g. be__TARASK, el__POLYTON) has no BCP 47 string that Jackson reads back
+    // unchanged: Jackson parses "be-TARASK" as language "be" with the country "TARASK", which Locale then drops.
+    // Newer JDKs list such locales, so leave them to allLocalesFromStrings, which uses the be__TARASK form.
+    locales.removeIf((locale) -> locale.getCountry().isEmpty() && !locale.getVariant().isEmpty());
 
     return locales.toArray();
   }
